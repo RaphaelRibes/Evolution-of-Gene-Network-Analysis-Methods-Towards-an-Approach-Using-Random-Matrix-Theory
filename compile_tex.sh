@@ -53,15 +53,8 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-# Step 5: Open the generated PDF automatically
-PDF_FILE="$OUTDIR/$BASENAME.pdf"
-if [ -f "$PDF_FILE" ]; then
-    echo "Opening the generated PDF: $PDF_FILE"
-    xdg-open "$PDF_FILE" &> /dev/null &
-else
-    echo "Error: PDF file not found."
-    exit 1
-fi
+# Step 5: Move the generated PDF to the main directory
+mv "$OUTDIR/$BASENAME.pdf" .
 
-# Completion message
-echo "Compilation complete. Output files are in the '$OUTDIR' directory."
+# Step 5: Open the generated PDF automatically
+xdg-open "$BASENAME.pdf" &

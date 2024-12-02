@@ -6,7 +6,7 @@ s = np.linspace(0, 5, 500)
 P_s = (s / 2) * np.exp(-s**2 / 4)
 
 # Create the plot
-plt.figure(figsize=(8, 6))
+plt.figure(figsize=(10, 5))
 plt.plot(s, P_s, label=r"$P(s) = \frac{s}{2} e^{-\frac{s^2}{4}}$")
 # plt.title(r"Plot of $P(s) = \frac{s}{2} e^{-\frac{s^2}{4}}$", fontsize=14)
 plt.xlabel(r"$s$", fontsize=12)
