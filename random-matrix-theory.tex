@@ -1,0 +1,83 @@
+\subsection{Fundamentals of Random Matrix}\label{subsec:fundamentals-of-random-matrix}
+
+Random Matrix Theory (RMT) bridges linear algebra and probability theory\supercite{vivo_random_2017}, examining the statistical behavior of matrices with randomly distributed elements.
+It allows to find order in chaos, revealing underlying structures in complex systems like biological networks\supercite{deng_molecular_2012}, financial markets\supercite{pharasi_complex_2018}, and quantum physics\supercite{guhr_random_1997}.
+A key focus of RMT is to understand the properties of their eigenvalues of the matrices with random entries.
+\\\\
+\noindent TA basic calculation in RMT is finding the spacing distribution of eigenvalues.
+A simple example involves a 2x2 real symmetric matrix with Gaussian random variables as entries.
+
+\noindent Consider the matrix $X$:
+\begin{gather*}
+    X=\begin{pmatrix}
+x_1 & x_3\\ x_3 & x_2
+\end{pmatrix}\\
+    x_1, x_2 \sim N(0,1) \quad x_3 \sim N(0,\frac{1}{2})\\
+\end{gather*}
+
+
+\noindent Where $N(0,1)$ denotes a Gaussian distribution with mean 0 and variance 1 and $N(0,\frac{1}{2})$ denotes a Gaussian distribution with mean 0 and variance $\frac{1}{2}$.
+
+The variance of the off-diagonal element is chosen to be half of the variance of the diagonal elements for a specific reason that allows an ea
+The question is that we want to find the probability density function (pdf) of the spacing s between the two eigenvalues.
+So $s=\lambda_1-\lambda_2$ where $\lambda_1$ and $\lambda_2$ are the eigenvalues of the matrix $X$.
+
+\noindent This spacing for a 2x2 matrix can be calculated like this:
+\[s = \lambda_1 - \lambda_2 = \sqrt{(x_1 - x_2)^2 + 4x_3^2}\]
+
+\noindent We're gonna skip the whole demonstration of the calculation, but the final equation for the pdf of the spacing s is:
+\[P(s)=\frac{s}{2}e^{-\frac{s^2}{4}}\]
+
+\begin{figure}[H]
+    \captionsetup{aboveskip=5pt, belowskip=5pt} % Adjust spacing here
+    \centering
+    \includegraphics[width=1\textwidth]{Wigner’s surmise} % Path to your image file
+    \caption{Wigner’s surmise}
+    \label{fig:Wigner’s surmise}
+\end{figure}
+
+Despite its simplicity, this result is remarkably profound: it reveals that the probability of sampling two eigenvalues that are "very close" to each other (as $s \to 0$) is extremely low.
+It's as though each eigenvalue "senses" the presence of the others and adjusts to maintain a certain distance—neither too close nor too far.
+This behavior is reminiscent of birds perched on an electric wire or cars parked along a street: maintaining a balance between proximity and spacing. \supercite{livan_introduction_2017}
+\\\\
+In biological systems, the transition from global network interactions, characterized by the Wigner's surmise distribution, to isolated modular structures, described by the Poisson distribution, reflects the emergence of functional modularity.
+This transition highlights level repulsion, where eigenvalues tend to "avoid" close proximity.
+The phenomenon underscores intrinsic correlations among eigenvalues, even when matrix entries are independently distributed.
+
+\noindent By investigating eigenvalue spacing distributions, researchers identify key properties like the Wigner's surmise distribution in GOE systems or the exponential decay of Poisson distributions in decoupled systems.
+These techniques offer a powerful framework for exploring complex systems, including biological networks and beyond.\supercite{luo_application_2006}
+
+Random Matrix Theory allow us to have a better understanding of the organization of complex systems by analyzing eigenvalue spacings, capturing transitions from global interactions to modular structures.
+This approach underscores the utility of statistical models like Wigner’s surmise and Poisson distributions in exploring biological networks and other interconnected systems.
+
+\subsection{Applications of Random Matrix Theory in Many-body Systems}\label{subsec:applications-of-random-matrix-theory-in-many-body-systems}
+
+By describing the statistical properties of spectra in complex quantum systems, RMT bridges seemingly disparate phenomena through its universal principles.
+The role of RMT in understanding many-body systems, its implications for quantum chaos, and its connections to field theory and statistical mechanics, allow us to understand the versatility and foundational importance of it in modern physics.
+
+Many-body systems encompass complex structures involving numerous particles interacting via two-body forces.
+Examples include atomic nuclei, which consist of nucleons bound by strong nuclear forces, and atoms and molecules, where ions and electrons interact through electromagnetic forces.
+These systems demonstrate high levels of complexity.
+The Hamiltonian is an operator which determines the evolution of a quantum state through the Schrödinger equation.
+It's described for $N$ particules like :
+\[\hat{H}=\sum^N_{n=1}\hat{T}_n+\hat{V}\]
+Where $\hat{T}_n$ is the kinetic energy operator of particle n and $\hat{V}$ is the potential energy function.
+The key idea is to replace the complex, specific Hamiltonian of the system with an ensemble of random matrices that share the same symmetries.
+\\\\
+At low incident energies, the use of the Gaussian Orthogonal Ensemble (GOE) in modeling compound nucleus scattering assumes that the nucleus equilibrates internally faster than it decays.
+However, as incident energy increases, the decay time becomes comparable to the equilibration time, meaning the nucleus can decay before full equilibration.
+
+\noindent To address this, the model is extended using the nuclear shell model, dividing the compound nucleus into classes of states with fixed particle-hole numbers.
+Each class is represented by a random matrix, and the coupling between neighborefers to the absence of a fermion in an energy level it would occupy in the ground statering classes, governed by the two-body interaction, is also modeled using random matrices.
+Imagine sorting all possible quantum states of a system (like a nucleus) into different groups based on their particle-hole number.
+This means each group contains states with the same number of particles excited above the ground state and the same number of holes left behind.
+Each of these groups is then modeled using a random matrix.
+
+Instead of trying to calculate the exact energy values for each state in a group, which is extremely slow and complex and laborious, we use a random matrix to represent the overall statistical behavior of the energy levels within that group.
+The random matrix is chosen from an ensemble that respects the symmetries of the physical system.
+For instance, if the system possesses time-reversal symmetry, a random matrix ensemble like the Gaussian Orthogonal Ensemble (GOE) would be appropriate.
+The total Hamiltonian is then a band matrix whose entries are random matrices.
+By doing this, RMT enables the calculation of statistical properties of the S-matrix, providing a deeper understanding of the behavior of resonances and the fluctuations in cross-sections.
+
+
+\subsection{Statistical Methods and Metrics Derived from RMT for Network Analysis}\label{subsec:statistical-methods-and-metrics-derived-from-rmt-for-network-analysis}

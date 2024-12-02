@@ -1,0 +1,158 @@
+% Preamble
+\documentclass{article}[12pt]
+
+% bibliography
+\usepackage[style=numeric, sorting=none, backend=biber]{biblatex}
+\addbibresource{sources.bib}
+
+% Exclude the 'note' field from the bibliography
+\AtEveryBibitem{\clearfield{note}}
+\AtEveryBibitem{\clearfield{url}}
+\setlength{\emergencystretch}{3em}
+
+% Disable Hyphenation Globally
+\hyphenpenalty=10000
+\exhyphenpenalty=10000
+
+% Packages
+\usepackage{amsmath}
+\usepackage{indentfirst}
+\usepackage{ragged2e}
+\usepackage{microtype}
+\usepackage[hidelinks]{hyperref}
+\usepackage{titlesec}
+\usepackage{tocloft}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{geometry}[margin=1.5cm]
+\usepackage{setspace}
+\usepackage{booktabs}
+\usepackage{lastpage}
+
+% Better headers
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\nouppercase{\leftmark}}
+\fancyhead[R]{\thepage}
+\fancyfoot[L]{Raphaël Ribes} % Footer left
+\fancyfoot[C]{}              % Footer center
+\fancyfoot[R]{\thepage/\pageref{LastPage}}      % Footer right
+
+\renewcommand{\headrulewidth}{0.4pt} % Thin line under header
+\renewcommand{\footrulewidth}{0.4pt} % Line above the footer
+
+
+
+% Set default paragraph indentation
+\setlength{\parindent}{3em}
+
+% Table of contents
+\renewcommand{\contentsname}{Table of Contents}
+
+% Change section numbering to Roman numerals
+\renewcommand{\thesection}{\arabic{section}-}
+\renewcommand{\thesubsection}{\Alph{subsection})}
+
+% Document
+\begin{document}
+\onehalfspace
+
+\title{Evolution of Gene Network Analysis Methods: Towards an Approach Using Random Matrix Theory}
+\author{Raphaël Ribes}
+\maketitle
+
+\thispagestyle{empty} % Suppress page number on the title page
+
+% Reset and start page numbering from the second page
+\newpage
+\setcounter{page}{1} % Start numbering from 1
+\pagenumbering{arabic}
+
+\tableofcontents
+\vfill
+\section*{Acknowledgements}
+\noindent I would like to thank Dr. Jizhong Zhou for sharing his expertise and helping with the proofreading of this work.
+I am also grateful to Dr. Konstantin Todorov for his guidance as my educational tutor.
+Thank you both for your contributions to the completion of this work.
+
+\newpage
+% Sections
+\section{Introduction}\label{sec:introduction}
+
+Gene networks are among the most crucial frameworks to study in biological research today.
+These methods have evolved from their first application of network science in genomic biology and combined with ecological models in order to improve performance metrics like accuracy and interpretability over time.
+
+Traditionally, the origins of network analysis in science go back as far as 1736 when Leonhard Euler solved the "Seven Bridges of Königsberg" problem that enabled development of graph theory and its applications\supercite{euler_solutio_1726}.
+The challenge posed to Euler was deceptively simple: Could a person cross all seven bridges exactly once without retracing their steps?
+Euler approached this problem by abstracting the geography of Königsberg into a network of nodes and edges.
+The landmasses were represented as nodes, and the bridges connecting them were represented as edges.
+% insert a image
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{konigsberg-1581-22} % Path to your image file
+    \caption{Seven Bridges of Königsberg\supercite{young_seven_2020}}
+    \label{fig:example-image}
+\end{figure}
+
+\noindent Euler proved that the problem had no solution, laying down two key principles in the process:
+\begin{enumerate}
+    \item Nodes and Edges: Euler identified that the ability to traverse a network depends on the degree of each node (the number of edges connected to it).
+    For a path that crosses each edge exactly once (an Eulerian path), all but two nodes must have an even degree.
+    \item Graph Connectivity: The network must be connected, meaning all nodes must be reachable from any other node.
+\end{enumerate}
+
+\noindent In the case of Königsberg, all four nodes had an odd degree, making it impossible to traverse the network under the stated conditions.
+This conclusion not only resolved the Königsberg problem but also established the first theorem of graph theory.
+\newpage
+Jacob Moreno and Helen Jennings took this idea a step further in the 1930s, drawing social relationships with sociometric maps that would be some of the first systematic applications of network analysis to social science\supercite{moreno_who_1934}.
+Use of network analysis has been applied to other domains like physics\supercite{kirchhoff_solution_1958} and chemistry\supercite{arthur_mathematical_1896}, showing how versatile and hwo impactful this field can be.
+This is why, in this work, the evolution on gene network analysis will be discussed, with a particular focus on the use of Random Matrix Theory (RMT) to increase robustness during network construction.
+\\\\
+
+Gene networks are intricate representations of interactions among genes and their products within biological systems\supercite{oldham_conservation_2006}.
+These networks, composed of nodes symbolizing genes and edges reflecting interactions\supercite{barabasi_network_2004}, offer a system-wide perspective on cellular processes.
+Researchers leverage these networks to investigate critical biological phenomena\supercite{barabasi_network_2004}, such as development\supercite{montoya_ecological_2006}, disease progression\supercite{friedman_using_2000}, and evolutionary adaptations\supercite{dunne_food-web_2002}.
+Notably, gene networks are instrumental in identifying gene modules—highly connected clusters of genes that frequently correspond to functional units\supercite{luo_constructing_2007,friedman_using_2000} and hub genes, which play pivotal roles in maintaining cellular integrity\supercite{zhang_general_2005,luo_constructing_2007}.
+\\\\
+The construction of gene networks employs diverse methodologies.
+Co-expression networks, for instance, utilize correlation matrices derived from gene expression data to identify links between genes that exhibit strong statistical relationships\supercite{van_dam_gene_2017, zhang_general_2005}.
+These approaches often rely on determining appropriate thresholds to distinguish meaningful biological connections from random noise, a process that remains subjective and heavily influenced by prior knowledge or statistical frameworks\supercite{deng_molecular_2012}.
+Despite their utility, traditional network approaches face challenges such as scalability and sensitivity to noise, emphasizing the need for advanced methods to refine and automate the thresholding process\supercite{deng_molecular_2012}.
+\\\\
+
+This bibliography takes you on a journey through the history of methods for analyzing gene networks, with particular focus on the game-changing application of RMT in providing greater robustness to network construction.
+This work highlights the need for such advanced methods as well as the integration of approaches like co-expression networks in frameworks such as the Molecular Ecological Network Analysis Pipeline (MENAP) that aim to capture complex biological architectures.
+
+
+\section{Network approaches applied in genomic biology}\label{sec:network-approaches-applied-in-genomic-biology}
+\input{network-approaches-applied-in-genomic-biology}
+
+\section{Random Matrix Theory}\label{sec:random-matrix-theory}
+\input{random-matrix-theory}
+
+\section{Molecular Ecological Network Analysis}\label{sec:molecular-ecological-network-analysis}
+\input{molecular-ecological-network-analysis}
+
+\section{Conclusion}\label{sec:conclusion}
+
+\newpage
+\printbibliography
+\addcontentsline{toc}{section}{References}
+
+\newpage
+\section*{Abstract}\label{sec:abstract}
+
+Gene networks serve as essential frameworks for many problems in modern biology, and it is increasingly clear that we need to understand their interactions in a systematic manner.
+The use of network science in genomic biology was the first application and has since evolved to include the basic understanding gained from ecology on whatever model has been envisaged, with increasing challenges for both accuracy and interpretability.
+Network analysis roots in science started in the 18th century with Leonhard Euler solving the "Seven Bridges of Königsberg" problem in 1736, creating a foundational concept for graph theory.
+In this bibliography, we will walk through the history of gene network analysis methods, pinpointing the turning point of using Random Matrix Theory (RMT) to increase robustness during network construction.
+Through examining (co-)expression networks to considering their incorporation into a framework like the Molecular Ecological Network Analysis Pipeline (MENAP), this work emphasizes the need for more powerful methods for capturing the complex structure of biological systems.
+
+\vfill % Push content to the bottom
+
+\section*{Keywords}
+\noindent Gene Network, Random Matrix Theory, Molecular Ecology, Network Analysis
+
+\end{document}
