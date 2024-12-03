@@ -1,7 +1,8 @@
 \subsection{Fundamentals of Random Matrix}\label{subsec:fundamentals-of-random-matrix}
 
-Random Matrix Theory (RMT) bridges linear algebra and probability theory\supercite{vivo_random_2017}, examining the statistical behavior of matrices with randomly distributed elements.
-It allows to find order in chaos, revealing underlying structures in complex systems like biological networks\supercite{deng_molecular_2012}, financial markets\supercite{pharasi_complex_2018}, and quantum physics\supercite{guhr_random_1997}.
+Random Matrix Theory bridges linear algebra and probability theory\supercite{vivo_random_2017}, examining the statistical behavior of matrices with randomly distributed elements.
+Originally introduced by Wigner and Dyson in the 1960s to study the spectral properties of complex nuclei, random modeling has since been applied to identifying and analyzing phase transitions linked to disorder and noise\supercite{deng_molecular_2012}.
+It allows to find order in chaos, revealing underlying structures in complex systems like co-expression networks\supercite{luo_constructing_2007}, financial markets\supercite{pharasi_complex_2018}, and quantum physics\supercite{guhr_random_1997}.
 A key focus of RMT is to understand the properties of their eigenvalues of the matrices with random entries.
 \\\\
 \noindent TA basic calculation in RMT is finding the spacing distribution of eigenvalues.
@@ -31,7 +32,7 @@ So $s=\lambda_1-\lambda_2$ where $\lambda_1$ and $\lambda_2$ are the eigenvalues
 \begin{figure}[H]
     \captionsetup{aboveskip=5pt, belowskip=5pt} % Adjust spacing here
     \centering
-    \includegraphics[width=1\textwidth]{Wigner’s surmise} % Path to your image file
+    \includegraphics[width=0.9\textwidth]{Wigner’s surmise} % Path to your image file
     \caption{Wigner’s surmise}
     \label{fig:Wigner’s surmise}
 \end{figure}
@@ -40,7 +41,7 @@ Despite its simplicity, this result is remarkably profound: it reveals that the 
 It's as though each eigenvalue "senses" the presence of the others and adjusts to maintain a certain distance—neither too close nor too far.
 This behavior is reminiscent of birds perched on an electric wire or cars parked along a street: maintaining a balance between proximity and spacing. \supercite{livan_introduction_2017}
 \\\\
-In biological systems, the transition from global network interactions, characterized by the Wigner's surmise distribution, to isolated modular structures, described by the Poisson distribution, reflects the emergence of functional modularity.
+Random Matrix Theory predicts two universal extreme distributions for the nearest neighbor spacing distribution (NNSD) of eigenvalues: the Gaussian Orthogonal Ensemble (GOE) statistics, reflecting the random characteristics of complex systems, and the Poisson distribution, representing system-specific, nonrandom properties of complex systems.
 This transition highlights level repulsion, where eigenvalues tend to "avoid" close proximity.
 The phenomenon underscores intrinsic correlations among eigenvalues, even when matrix entries are independently distributed.
 
@@ -64,7 +65,7 @@ It's described for $N$ particules like :
 Where $\hat{T}_n$ is the kinetic energy operator of particle n and $\hat{V}$ is the potential energy function.
 The key idea is to replace the complex, specific Hamiltonian of the system with an ensemble of random matrices that share the same symmetries.
 \\\\
-At low incident energies, the use of the Gaussian Orthogonal Ensemble (GOE) in modeling compound nucleus scattering assumes that the nucleus equilibrates internally faster than it decays.
+At low incident energies, the use of the GOE in modeling compound nucleus scattering assumes that the nucleus equilibrates internally faster than it decays.
 However, as incident energy increases, the decay time becomes comparable to the equilibration time, meaning the nucleus can decay before full equilibration.
 
 \noindent To address this, the model is extended using the nuclear shell model, dividing the compound nucleus into classes of states with fixed particle-hole numbers.
@@ -75,9 +76,5 @@ Each of these groups is then modeled using a random matrix.
 
 Instead of trying to calculate the exact energy values for each state in a group, which is extremely slow and complex and laborious, we use a random matrix to represent the overall statistical behavior of the energy levels within that group.
 The random matrix is chosen from an ensemble that respects the symmetries of the physical system.
-For instance, if the system possesses time-reversal symmetry, a random matrix ensemble like the Gaussian Orthogonal Ensemble (GOE) would be appropriate.
 The total Hamiltonian is then a band matrix whose entries are random matrices.
-By doing this, RMT enables the calculation of statistical properties of the S-matrix, providing a deeper understanding of the behavior of resonances and the fluctuations in cross-sections.
-
-
-\subsection{Statistical Methods and Metrics Derived from RMT for Network Analysis}\label{subsec:statistical-methods-and-metrics-derived-from-rmt-for-network-analysis}
+By doing this, RMT provides a deeper understanding of the behavior of resonances and the fluctuations in cross-sections within models of many-body systems.

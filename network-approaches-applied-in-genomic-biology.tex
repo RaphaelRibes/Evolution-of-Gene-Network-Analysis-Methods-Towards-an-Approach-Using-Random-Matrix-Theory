@@ -1,9 +1,9 @@
 \subsection{Equation-based network methods}\label{subsec:equation-based-network-methods}
 Equation-based methods offer a structured approach to modeling the dynamics of gene regulatory networks using ordinary differential equations (ODEs) to describe mRNA concentrations over time.
-Linearizing these ODEs around a steady-state point simplifies the analysis, enabling the representation of gene interactions through a connectivity matrix \(A\), where \(a_{ij}\) quantifies the influence of gene \(j\) on gene \(i\)\supercite{yeung_reverse_2002, akutsu_identification_1998, liang_reveal_nodate, gardner_inferring_2003}.
+Linearizing these ODEs around a steady-state point simplifies the analysis, enabling the representation of gene interactions through a connectivity matrix \(A\), where \(a_{ij}\) quantifies the influence of gene \(j\) on gene \(i\)\supercite{deng_molecular_2012}.
 
 
-\noindent To capture the system's responses to external changes, perturbations (\(b_i\)) are incorporated into the ODE framework, providing a means to simulate environmental or experimental variations\supercite{yeung_reverse_2002, liang_reveal_nodate}.
+\noindent To capture the system's responses to external changes, perturbations (\(b_i\)) are incorporated into the ODE framework, providing a means to simulate environmental or experimental variations\supercite{yeung_reverse_2002}.
 These perturbations allow researchers to explore the robustness and adaptability of the network.
 \\\\
 \noindent Various methods have been employed to infer these networks:
@@ -14,10 +14,10 @@ These perturbations allow researchers to explore the robustness and adaptability
 
     \item \textbf{Robust Regression:} Combined with SVD, robust regression enhances the reconstruction of connectivity matrices by prioritizing sparsity and minimizing the impact of outliers\supercite{yeung_reverse_2002}.
 
-    \item \textbf{Mutual Information and Boolean Networks:} Algorithms like REVEAL use mutual information to infer regulatory relationships based on input-output state transitions, suitable for binary models of gene activity\supercite{liang_reveal_nodate, akutsu_identification_1998}.
+    \item \textbf{Mutual Information and Boolean Networks:} Algorithms like REVEAL use mutual information to infer regulatory relationships based on input-output state transitions, suitable for binary models of gene activity\supercite{akutsu_identification_1998}.
 
     \item \textbf{Noise and Overdetermined Systems:} Designing experiments with \(M > N\) perturbations (where \(M\) is the number of experiments and \(N\) is the number of genes) ensures robustness against noise.
-    When this is infeasible, techniques like ridge regression or sparsity constraints become essential\supercite{gardner_inferring_2003, yeung_reverse_2002}.
+    When this is infeasible, techniques like ridge regression or sparsity constraints become essential\supercite{yeung_reverse_2002}.
 
 \end{itemize}
 
@@ -79,7 +79,7 @@ Among the various methods for constructing gene co-expression networks, the corr
 This method calculates pairwise correlations among genes and uses thresholds to filter out weak associations, producing networks that are straightforward to interpret\supercite{schmitt_elucidation_2004}.
 However, despite its advantages, the reliance on arbitrary thresholds is a significant limitation.
 These thresholds, often chosen based on subjective judgment or convenience, can introduce bias and affect the reproducibility and objectivity of the resulting networks\supercite{oldham_conservation_2006}.
-Arbitrary thresholding not only impacts the detection of biologically relevant interactions but also raises concerns about the method’s capacity to reflect the true complexity of gene regulatory mechanisms\supercite{gardner_reverse-engineering_2005, barabasi_network_2004}.
+Arbitrary thresholding not only impacts the detection of biologically relevant interactions but also raises concerns about the method’s capacity to reflect the true complexity of gene regulatory mechanisms\supercite{gardner_reverse-engineering_2005}.
 Addressing these limitations requires more systematic approaches to threshold selection.
 Such advancements would enhance the robustness and reliability of relevance network analyzes, bridging the gap between simplistic correlation-based methods and more sophisticated, biologically accurate models.
 

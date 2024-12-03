@@ -35,7 +35,6 @@
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[L]{\nouppercase{\leftmark}}
-\fancyhead[R]{\thepage}
 \fancyfoot[L]{Raphaël Ribes} % Footer left
 \fancyfoot[C]{}              % Footer center
 \fancyfoot[R]{\thepage/\pageref{LastPage}}      % Footer right
@@ -114,11 +113,11 @@ This is why, in this work, the evolution on gene network analysis will be discus
 Gene networks are intricate representations of interactions among genes and their products within biological systems\supercite{oldham_conservation_2006}.
 These networks, composed of nodes symbolizing genes and edges reflecting interactions\supercite{barabasi_network_2004}, offer a system-wide perspective on cellular processes.
 Researchers leverage these networks to investigate critical biological phenomena\supercite{barabasi_network_2004}, such as development\supercite{montoya_ecological_2006}, disease progression\supercite{friedman_using_2000}, and evolutionary adaptations\supercite{dunne_food-web_2002}.
-Notably, gene networks are instrumental in identifying gene modules—highly connected clusters of genes that frequently correspond to functional units\supercite{luo_constructing_2007,friedman_using_2000} and hub genes, which play pivotal roles in maintaining cellular integrity\supercite{zhang_general_2005,luo_constructing_2007}.
+Notably, gene networks are instrumental in identifying gene modules—highly connected clusters of genes that frequently correspond to functional units and hub genes, which play pivotal roles in maintaining cellular integrity\supercite{zhang_general_2005}.
 \\\\
 The construction of gene networks employs diverse methodologies.
-Co-expression networks, for instance, utilize correlation matrices derived from gene expression data to identify links between genes that exhibit strong statistical relationships\supercite{van_dam_gene_2017, zhang_general_2005}.
-These approaches often rely on determining appropriate thresholds to distinguish meaningful biological connections from random noise, a process that remains subjective and heavily influenced by prior knowledge or statistical frameworks\supercite{deng_molecular_2012}.
+Co-expression networks, for instance, utilize correlation matrices derived from gene expression data to identify links between genes that exhibit strong statistical relationships\supercite{zhang_general_2005}.
+These approaches often rely on determining appropriate thresholds to distinguish meaningful biological connections from random noise, a process that remains subjective and heavily influenced by prior knowledge or statistical frameworks.
 Despite their utility, traditional network approaches face challenges such as scalability and sensitivity to noise, emphasizing the need for advanced methods to refine and automate the thresholding process\supercite{deng_molecular_2012}.
 \\\\
 

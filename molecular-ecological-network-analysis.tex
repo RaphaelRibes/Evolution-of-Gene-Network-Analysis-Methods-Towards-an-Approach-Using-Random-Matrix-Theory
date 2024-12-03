@@ -1,12 +1,65 @@
 \subsection{Pipeline construction}\label{subsec:pipeline-construction}
 
+Molecular ecological networks (MENs) represent biological interactions within microbial communities, where nodes symbolize molecular markers such as operational taxonomic units (OTUs), functional genes, or intergenic regions, and edges denote the interactions between them.
+These networks are categorized into functional molecular ecological networks (fMENs), derived from functional gene markers, and phylogenetic molecular ecological networks (pMENs), based on phylogenetic gene markers.
+\\\\
+\noindent The process of Molecular Ecological Network Analysis (MENA) is divided into two primary phases.
+
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{Overview_of_the_Random_Matrix_Theory__RMT_-based_molecular_ecological_network_analysis} % Path to your image file
+    \includegraphics[width=1\textwidth]{Overview_of_the_Random_Matrix_Theory__RMT_-based_molecular_ecological_network_analysis_horizontal} % Path to your image file
     \caption{Overview of the Random Matrix Theory (RMT)-based molecular ecological network analysis\supercite{deng_molecular_2012}}
     \label{fig:Overview_of_the_Random_Matrix_Theory__RMT_-based_molecular_ecological_network_analysis}
 \end{figure}
 
-\subsection{RMT Integration in MENA}\label{subsec:rmt-integration-in-mena}
+The first phase is network construction, which involves data collection of data then its transformation or standardization to normalize, calculation of pairwise similarity matrices, and the determination of the adjacency matrix using Random Matrix Theory.
+The RMT-based approach is crucial for constructing an accurate network by defining connections between nodes based on statistical thresholds, resulting in an undirected network graph.
+
+The second phase is network analysis, which includes network topology characterization to assess the overall structure and properties of the network, module detection to identify groups of tightly connected nodes known as modules.
+Then a module-based eigengene analysis to understand underlying patterns and functions, and the identification of modular roles to determine the importance and function of nodes within modules.
+Additionally, eigengene network analysis explores higher-order organizational structures within the network, and associations between network properties and environmental characteristics are established to understand environmental influences.
+Finally, comparative analysis evaluates network differences under varying conditions to assess how environmental changes affect network structure and interactions.
+\\\\
+Collectively, these methods enable researchers to uncover the complex interactions within microbial ecosystems, identify key functional populations at the OTU level, and understand how environmental factors influence these networks.
+
+
+\subsection{Determination of the Adjacency Matrix Using Random Matrix Theory}\label{subsec:determination-of-the-adjacency-matrix-using-random-matrix-theory}
+
+RMT is utilized in MENA as a way to automatically identify thresholds for network construction.
+It is able to do that by examining the statistical properties of matrices derived from high-throughput ecological data.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Process of random matrix theory-based approach for automatically detecting threshold to construct molecular ecological networks} % Path to your image file
+    \caption{Process of random matrix theory-based approach for automatically detecting a threshold to construct molecular ecological networks\supercite{deng_molecular_2012}}
+    \label{fig:Process_of_random_matrix_theory-based_approach_for_automatically_detecting_threshold_to_construct_molecular_ecological_networks}
+\end{figure}
+
+At first, we have to compute the Pearson correlation matrix $R^{nxn}$ using the standardized relative abundances of OTUs $X^{nxm}$, where $n$ is the number of distinct OTUs and $m$ is the number of samples.
+This matrix $R^{nxn}$ is rapidly transformed into a similarity matrix $S^{nxn}$ by just taking the absolute values of $R^{nxn}$.
+An adjacency matrix $A^{pxp}$, where p is the number of OTUs retained in the adjacency matrix with non-zero rows or columns, is then defined according to a threshold $s_{tb}$ set at first at 0.3.
+
+For the completely uncorrelated eigenvalues, P(d) follows Poisson statistic, and it can be expressed by, $P(s)=e^{-d}$ and the correlated eigenvalues, P(d) closely follow Wigner-Dyson distribution of the GOE statistics, and it can be expressed by $P(s) \approx \frac{\pi s}{2}e^{-\frac{\pi}{4}s^2}$.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Wigner’s surmise and Poisson} % Path to your image file
+    \caption{Wigner-Dyson and Poisson distribution}
+    \label{fig:Wigner-Dyson_and_Poisson_distribution}
+\end{figure}
+
+To determine whether the Nearest Neighbor Spacing Distribution follows the Wigner-Dyson distribution or the Poisson distribution, we use the chi-squared test to fit it to the Poisson distribution.
+By establishing the null hypothesis $H_0$ that $P(d)$ follows a Poisson distribution, we test if the NNSD conforms to this distribution.
+If the NNSD does follow a Poisson distribution, we then subtract 0.1 to the current threshold and then increase the threshold incrementally by 0.01 instead of 0.1.
+
+\noindent After determining the final threshold value $s_t$ at a finer scale, an adjacency matrix is constructed by retaining all OTUs with abundance similarity values exceeding the defined threshold.
+In the later network topological analysis, we have adopted an unweighted network.
+Therefore, the final adjacency matrix will be defined like $A^{pxp}=[a_{ij}]$ is:
+
+\[a_{ij} =
+\begin{cases}
+1 & \text{if } s_{ij} \geq s_t, \\
+0 & \text{if } s_{ij} < s_t.
+\end{cases}\]
 
 \subsection{Comparison to Legacy Network Methods}\label{subsec:comparison-to-legacy-network-methods}
