@@ -1,4 +1,4 @@
-\subsection{PIPELINE CONSTRUCTION}\label{subsec:pipeline-construction}
+\subsection{Pipeline Construction}\label{subsec:pipeline-construction}
 
 Molecular ecological networks (MENs) represent biological interactions within microbial communities, where nodes symbolize molecular markers such as operational taxonomic units (OTUs), functional genes, or intergenic regions, and edges denote the interactions between them.
 These networks are categorized into functional molecular ecological networks (fMENs), derived from functional gene markers, and phylogenetic molecular ecological networks (pMENs), based on phylogenetic gene markers.
@@ -25,7 +25,7 @@ Finally, comparative analysis evaluates network differences under varying condit
 Collectively, these methods enable researchers to uncover the complex interactions within microbial ecosystems, identify key functional populations at the OTU level, and understand how environmental factors influence these networks.
 
 \newpage
-\subsection{DETERMINATION OF THE ADJACENCY MATRIX USING \mbox{RANDOM} MATRIX THEORY}\label{subsec:determination-of-the-adjacency-matrix-using-random-matrix-theory}
+\subsection{Determination Of The Adjacency Matrix Using \mbox{Random} Matrix Theory}\label{subsec:determination-of-the-adjacency-matrix-using-random-matrix-theory}
 
 RMT is used in MENA as a way to automatically identify thresholds for network construction(\autoref{fig:Process_of_random_matrix_theory-based_approach_for_automatically_detecting_threshold_to_construct_molecular_ecological_networks}).
 It is able to do that by examining the statistical properties of matrices derived from high-throughput ecological data.
@@ -49,7 +49,7 @@ s_{ij} & \text{if } s_{ij} \geq s_t, \\
 \\\\
 \noindent The eigenvalues $\lambda_i$ of the adjacency matrix $A^{pxp}$ are then calculated.
 Since it $A^{pxp}$ is a symmetric matrix, p eigenvalues can be obtained.
-To test NNSD distribution, order the eigenvalues as $\lambda_1 \leq \lambda_2 \leq \ldots \leq \lambda_p$.
+To test the Nearest Neighbor Spacing Distributions (NNDS), the eigenvalues are ordered as $\lambda_1 \leq \lambda_2 \leq \ldots \leq \lambda_p$.
 To unfold the eigenvalues, $\lambda_i$ is replaced by $e_i = N_{av}(\lambda_i)$ where $N_{av}$ is the continuous density of eigenvalues.
 The continuous density $N_{av}$ can be obtained either by fitting the original integrated density to a cubic spline or by calculating the local average.
 \\\\
@@ -81,7 +81,7 @@ Therefore, the final adjacency matrix will be defined like $A^{pxp}=[a_{ij}]$ is
 \end{cases}\]
 \\\\
 \noindent Here is a Python code snippet that demonstrates the process of determining the adjacency matrix using RMT.
-It is assumed that the best threshold value $s_t$ has been reached, and the eigenvalues $\lambda_i$ of the adjacency matrix $A^{p \times p}$ are available.
+It is assumed that, and the eigenvalues $\lambda_i$ of the adjacency matrix $A^{p \times p}$ are available.
 \\\\
 \begin{figure}[H] % H forces the figure to appear exactly here
 \centering
@@ -96,7 +96,8 @@ from scipy.stats import chi2
 
 # Generate sample eigenvalues for testing
 N = 10000
-lambdas = np.sort(np.random.normal(loc=0, scale=1, size=N))
+lambdas = np.random.normal(loc=0, scale=1, size=N)
+lambdas.sort()
 
 N_lambda = np.arange(1, N + 1)  # Integrated density N(lambda_i) = i
 
@@ -107,24 +108,25 @@ spline = UnivariateSpline(lambdas, N_lambda, s=N, k=3)
 e_i = spline(lambdas)
 
 # Compute the NNDS
-s = np.diff(e_i)
+spacings = np.diff(e_i)
 
 # Khi^2 test, compute the expected spacings
-x = np.linspace(0.5, 5, 50)
-# Compute the histogram of spacings
-p_s, bin_edges = np.histogram(s, bins=50, density=True)
+# Compute the pdf of spacings
+p_s, bin_edges = np.histogram(spacings, bins=50, density=True)
 s = 0.5 * (bin_edges[:-1] + bin_edges[1:])
+
 poisson = np.exp(-s)
 
 # Compute the chi-squared statistic
 chi2_stat = np.sum((p_s - poisson) ** 2 / poisson)
-print(f"{chi2_stat:.2f} < {chi2.ppf(0.99, 1):.2f} so H0 is accepted")
+print(f"{chi2_stat:.2f} <= {chi2.ppf(0.99, 1):.2f} so H0 is not rejected")
 \end{lstlisting}
-\caption{Python code for determining the adjacency matrix using RMT}
+\caption{Python code for determining the threshold for the adjacency matrix using RMT}
 \label{fig:pythoncode}
 \end{figure}
 
-From this, it is concluded that "0.09 < 6.63 so H0 is accepted" indicating that the NNSD is consistent with the Poisson distribution~(\autoref{fig:Histogram_of_spacings_and_expected_spacings}).
+From this, it is concluded that "0.09 $\leq$ 6.63 so H0 is not rejected" indicating that it is the right threshold because the NNSD is consistent with the Poisson distribution~(\autoref{fig:Histogram_of_spacings_and_expected_spacings}).
+Indeed, since the eigenvalues are generated using a normal distribution, these eigenvalues are uncorrelated by design.
 This code snippet~(\autoref{fig:pythoncode}) demonstrates hwo easy the process of determining the adjacency matrix using RMT can be.
 This simplicity mixed with the robustness of determining a threshold with RMT makes this method very elegant.
 The histogram of spacings and the expected spacings can be plotted to visualize the results.
@@ -132,13 +134,13 @@ The histogram of spacings and the expected spacings can be plotted to visualize 
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{Wigner’s surmise and Poisson fitting P(s)} % Path to your image file
-    \caption{Histogram of spacings and expected spacings}
+    \caption{Histogram of spacings compared to the expected spacings (Poisson distribution) and the Wigner-Dyson distribution}
     \label{fig:Histogram_of_spacings_and_expected_spacings}
 \end{figure}
 
 \noindent Thus, the adjacency matrix is constructed using the threshold $s_t$ determined by RMT, ensuring that the network is constructed objectively and consistently.
 
-\subsection{COMPARISON TO LEGACY NETWORK METHODS AND ROBUSTNESS}\label{subsec:comparison-to-legacy-network-methods-and-robustness}
+\subsection{Comparison To Legacy Network Methods And Robustness}\label{subsec:comparison-to-legacy-network-methods-and-robustness}
 
 Both methodologies aim to understand relationships among biological entities, but they differ in principles, computational frameworks, and applications.
 MENA uses advanced statistical tools like RMT to create robust, automated ecological networks.
@@ -175,7 +177,7 @@ Arbitrary or empirically determined, leading to potential biases\cite{deng_molec
 
 \textbf{Integration with Functional Data} &
 Facilitates module-based eigengene analysis for deeper insights\cite{deng_molecular_2012} &
-Limited integration with functional data without additional preprocessing\cite{chen_variations_2008} \\
+Limited integration with functional data without additional preprocessing\cite{horvath_analysis_2006} \\
 
 \textbf{Software Availability} &
 Supported by tools like MENAP for streamlined analysis\cite{deng_molecular_2012} &

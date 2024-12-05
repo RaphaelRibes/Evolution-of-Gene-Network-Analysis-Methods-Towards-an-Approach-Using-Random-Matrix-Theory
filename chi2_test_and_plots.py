@@ -2,7 +2,7 @@ import numpy as np
 from scipy.interpolate import UnivariateSpline
 from scipy.stats import chi2
 import matplotlib.pyplot as plt
-
+# import a dataset of modulated network
 
 # Example usage
 if __name__ == '__main__':
@@ -20,39 +20,40 @@ if __name__ == '__main__':
     e_i = spline(lambdas)
 
     # Compute the NNDS
-    s = np.diff(e_i)
+    spacings = np.diff(e_i)
 
     # Khi² test, compute the expected spacings
-    x = np.linspace(0.5, 5, 50)
     # Compute the histogram of spacings
-    p_s, bin_edges = np.histogram(s, bins=50, density=True)
+    p_s, bin_edges = np.histogram(spacings, bins=50, density=True)
     s = 0.5 * (bin_edges[:-1] + bin_edges[1:])
+
     poisson = np.exp(-s)
 
     # Compute the chi-squared statistic
     chi2_stat = np.sum((p_s - poisson) ** 2 / poisson)
-    print(f"{chi2_stat:.2f} < {chi2.ppf(0.99, 1):.2f} so H0 is accepted")
+    print(f"{chi2_stat:.2f} <= {chi2.ppf(0.99, 1):.2f} so H0 is not rejected")
 
     # Create the plot
     plt.figure(figsize=(10, 5))
 
-    x = np.linspace(0, 5, counts.size)
-    wingner_dyson = ((np.pi * bin_centers) / 2) * np.exp(-(np.pi * bin_centers ** 2) / 4)
-    poisson = np.exp(-bin_centers)
+    x = np.linspace(0, 5, p_s.size)
+    wingner_dyson = ((np.pi * x) / 2) * np.exp(-(np.pi * x ** 2) / 4)
+    poisson = np.exp(-x)
 
     plt.plot(x, wingner_dyson, label=r"$P(s) = \frac{\pi s}{2} e^{-\frac{\pi s^2}{4}}$")
     plt.plot(x, poisson, label=r"$P(s) = e^{-s}$")
-    plt.hist(s, bins=50, density=True, alpha=0.7, label='Histogram of $s$')
+    plt.hist(spacings, bins=50, density=True, alpha=0.7, label='Histogram of $s$')
+
     plt.xlabel(r"$s$", fontsize=12)
     plt.ylabel(r"$P(s)$", fontsize=12)
     plt.xlim(0, 5)
-    plt.ylim(0)
+    plt.ylim(0, 1)
     plt.legend(fontsize=12)
     plt.gca().spines['top'].set_visible(False)
     plt.gca().spines['right'].set_visible(False)
     plt.grid(True)
     plt.tight_layout()
-    plt.savefig("Wigner’s surmise and Poisson fitting P(s) noisy.png", dpi=300)
+    plt.savefig("Wigner’s surmise and Poisson fitting P(s).png", dpi=300)
     plt.show()
 
 
