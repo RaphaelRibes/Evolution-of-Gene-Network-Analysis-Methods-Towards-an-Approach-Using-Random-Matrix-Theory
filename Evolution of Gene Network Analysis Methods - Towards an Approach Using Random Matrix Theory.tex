@@ -1,0 +1,182 @@
+% Preamble
+\documentclass[leqno]{article}[12pt]
+
+% bibliography
+\usepackage[style=numeric, sorting=none, backend=biber]{biblatex}
+\addbibresource{sources.bib}
+
+% Exclude the 'note' field from the bibliography
+\AtEveryBibitem{\clearfield{note}}
+\AtEveryBibitem{\clearfield{url}}
+\setlength{\emergencystretch}{3em}
+\usepackage{subcaption} % For subfigure environment
+
+% Disable Hyphenation Globally
+% \hyphenpenalty=10000
+% \exhyphenpenalty=10000
+
+% Packages
+\usepackage{amsmath}
+\usepackage{indentfirst}
+\usepackage{ragged2e}
+\usepackage{microtype}
+\usepackage[hidelinks]{hyperref}
+\usepackage{titlesec}
+\usepackage{tocloft}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{geometry}[margin=1.5cm]
+\usepackage{setspace}
+\usepackage{booktabs}
+\usepackage{lastpage}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{tabularx}
+\usepackage{titling}
+
+\lstset{
+    language=Python,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{red},
+    commentstyle=\color{green!50!black},
+    numbers=left,
+    numberstyle=\tiny,
+    stepnumber=1,
+    numbersep=5pt,
+    showstringspaces=false,
+    tabsize=4,
+    breaklines=true,
+    frame=single,
+    inputencoding=utf8,
+    extendedchars=true,
+    literate={},
+    % Reduce spacing in code blocks
+}
+
+% Set the title format
+\setlength{\droptitle}{-5em} % Adjust the vertical space above the title
+
+
+% Better headers
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\nouppercase{\leftmark}}
+\fancyfoot[L]{Raphaël Ribes} % Footer left
+\fancyfoot[C]{}              % Footer center
+\fancyfoot[R]{\thepage/\pageref{LastPage}}      % Footer right
+
+\renewcommand{\headrulewidth}{0.4pt} % Thin line under header
+\renewcommand{\footrulewidth}{0.4pt} % Line above the footer
+\geometry{
+  bottom=2cm,
+  footskip=1cm
+}
+% Make the footer smaller
+
+% Set default paragraph indentation
+\setlength{\parindent}{2em}
+
+% Table of contents
+\renewcommand{\contentsname}{Table of Contents}
+
+% Change section numbering to Roman numerals
+\renewcommand{\thesection}{\arabic{section}-}
+\renewcommand{\thesubsection}{\Alph{subsection})}
+
+% Document
+\begin{document}
+\onehalfspace
+
+% Define the page style for the first two pages
+\fancypagestyle{firstpagestyle}{
+    \fancyhf{} % Clear all headers and footers
+    \renewcommand{\headrulewidth}{0pt} % Remove header line
+    \renewcommand{\footrulewidth}{0pt} % Remove footer line
+}
+
+% Apply the custom style to the first page
+\thispagestyle{firstpagestyle}
+
+% Include images in the title area
+\pretitle{%
+  \begin{center}
+  \includegraphics[height=2cm]{UM}\hfill
+  \includegraphics[height=2cm]{FDS}\vspace{5cm}\\ % Adjust spacing as needed
+  \normalfont\fontsize{14pt}{16pt}\selectfont % Reset to default font size
+}
+\posttitle{\par\end{center}}
+
+\title{Evolution of Gene Network Analysis Methods: Towards an Approach Using Random Matrix Theory}
+\author{Raphaël Ribes}
+\date{}
+\maketitle
+
+% Suppress page number on the title page
+\thispagestyle{firstpagestyle}
+
+% Reset and start page numbering from the second page
+\newpage
+
+\tableofcontents
+\vfill
+\section*{Acknowledgements}
+\noindent I would like to thank Dr. Jizhong Zhou for sharing his expertise and helping with the proofreading of this work.
+I am also grateful to Dr. Konstantin Todorov for his guidance as my educational tutor.
+Thank you both for your contributions to the completion of this work.
+\thispagestyle{firstpagestyle}
+\newpage
+\setcounter{page}{1} % Start numbering from 1
+\pagenumbering{arabic}
+% Sections
+\section{INTRODUCTION}\label{sec:introduction}
+\input{introduction}
+
+\section{NETWORK APPROACHES APPLIED IN GENOMIC BIOLOGY}\label{sec:network-approaches-applied-in-genomic-biology}
+\input{network-approaches-applied-in-genomic-biology}
+
+\section{RANDOM MATRIX THEORY}\label{sec:random-matrix-theory}
+\input{random-matrix-theory}
+
+\section{MOLECULAR ECOLOGICAL NETWORK ANALYSIS}\label{sec:molecular-ecological-network-analysis}
+\input{molecular-ecological-network-analysis}
+
+\section{DISCUSSION}\label{sec:discussion}
+\input{discussion}
+
+\section{CONCLUSION}\label{sec:conclusion}
+In conclusion, the integration of RMT into gene network analysis represents a pivotal step toward more robust and meaningful biological interpretations.
+By addressing the limitations of traditional methods and embracing the complexity of biological systems, RMT-based approaches pave the way for a deeper understanding of gene interactions and their implications in molecular ecology.
+Continued collaboration across disciplines will be essential to harness the full potential of these methodologies, driving innovation and discovery in the years to come.
+
+\noindent The innovations that led to the creation of MENA should serve as great motivation.
+A motivation that helps researchers continue to push the boundaries of what is possible in gene network analysis and for exploring the application of RMT to other domains of biology.
+For example, when used in cellular biology\cite{aparicio_random_2020}, RMT provides a great tool for analyzing the inherent noise and sparsity in single-cell genomic datasets.
+It has been applied on a model based on data of random noise, sparsity-induced artifacts, and genuine biological signals that RMT helped disentangle these components effectively.
+Ultimately, RMT-based methods facilitate deeper insights into complex biological systems, and help researchers to enhance the reliability and the precision of their findings.
+
+
+\newpage
+\printbibliography
+\addcontentsline{toc}{section}{References}
+\newpage
+
+\section*{Abstract}\label{sec:abstract}
+Gene network analysis has become a cornerstone in understanding complex biological systems, offering insights into development, disease progression, and ecological dynamics.
+This study explores the evolution of gene network analysis methods, from traditional equation-based and Bayesian approaches to the integration of advanced statistical techniques emerging from Random Matrix Theory (RMT).
+While conventional methods often struggle with scalability, are noise-sensitive, and use subjective thresholding, RMT introduces a systematic and robust mechanism for automatic threshold determination.
+The integration of RMT, particularly in the Molecular Ecological Network Analysis (MENA) pipeline, enhances the construction of gene networks by improving robustness and reducing bias while also removing noise.
+This approach provides deeper understanding of the modularity and system dynamics, bridging the gap between traditional network methods and the demands of modern biological data analysis.
+The study concludes by emphasizing the transformative potential of RMT in gene network analysis and its applicability to broader biological and ecological domains.
+
+\vfill % Push content to the bottom
+
+\section*{Keywords}
+\noindent Gene Network, Random Matrix Theory, Molecular Ecology, Network Analysis
+
+\end{document}
