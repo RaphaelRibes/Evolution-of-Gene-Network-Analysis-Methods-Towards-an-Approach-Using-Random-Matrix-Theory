@@ -5,52 +5,54 @@ Linearizing these ODEs around a steady-state point simplifies the analysis, enab
 
 \noindent To capture the system's responses to external changes, perturbations (\(b_i\)) are incorporated into the ODE framework, providing a means to simulate environmental or experimental variations\cite{yeung_reverse_2002}.
 These perturbations allow researchers to explore the robustness and adaptability of the network.
-\\\\
+
+\newpage
 \noindent Various methods have been used to infer these networks:
 
 \begin{itemize}
 
-    \item \textbf{Singular Value Decomposition (SVD):} SVD is used to decompose expression data into principal components, identifying sparse network patterns while reducing noise and computational complexity\cite{yeung_reverse_2002}.
+    \item \textbf{Singular Value Decomposition (SVD):} is a mathematical technique used to decompose a matrix into a product of three other matrices where
+    \subitem $X_{M\times N}$ is the original data matrix with M experiments and N genes.
+    \subitem $U$ and $V$ are orthogonal matrices, meaning that their transposes are equal to their inverses
+    \subitem $U^T.U=V^T.V=I$ where $I$ is the identity matrix.
+    \subitem W is a diagonal matrix containing singular values.
 
-    \item \textbf{Robust Regression:} Combined with SVD, robust regression enhances the reconstruction of connectivity matrices by prioritizing sparsity and minimizing the impact of outliers\cite{yeung_reverse_2002}.
+    It is used in the context of reverse-engineering gene networks to simplify complex data sets and extract essential information about gene interactions\cite{yeung_reverse_2002}.
 
-    \item \textbf{Mutual Information and Boolean Networks:} Algorithms like REVEAL use mutual information to infer regulatory relationships based on input-output state transitions, suitable for binary models of gene activity\cite{akutsu_identification_1998}.
-
-    \item \textbf{Noise and Overdetermined Systems:} Designing experiments with \(M > N\) perturbations (where \(M\) is the number of experiments and \(N\) is the number of genes) ensures robustness against noise.
-    When this is infeasible, techniques like ridge regression or sparsity constraints become essential\cite{yeung_reverse_2002}.
+    \item \textbf{Robust Regression:} is a method used to fit a hyperplane to a set of points that may contain outliers, with the goal of passing through as many points as possible.
+    Combined with SVD, robust regression enhances the reconstruction of connectivity matrices by prioritizing sparsity and minimizing the impact of outliers\cite{yeung_reverse_2002}.
 
 \end{itemize}
 
 
-
-Despite their strengths, equation-based methods rely on assumptions such as the validity of the linear approximation, which may fail for large perturbations.
+\noindent Despite their strengths, equation-based methods rely on assumptions such as the validity of the linear approximation, which may fail for large perturbations.
+SVD is a powerful tool; however, this method provides a family of candidate networks that are consistent with the microarray data.
+It does not choose one candidate as the best model.
 Moreover, sparse network reconstruction demands careful experimental design to balance the number of perturbations with data quality\cite{yeung_reverse_2002}.
-
 
 \noindent These approaches provide powerful tools for inferring gene regulatory networks by integrating theoretical models with experimental data, enabling iterative refinements and deeper insights into biological systems.
 
-
+\vfill
 \subsection{Bayesian Network Methods}\label{subsec:bayesian-network-methods}
 
-Bayesian networks are probabilistic graphical models that are used to analyze relationships between variables.
-These networks are particularly well-suited for genomic biology because they help in exploring complex interdependencies such as gene expression patterns and the dynamics of cancer progression\cite{friedman_using_2000, gerstung_quantifying_2009}.
+Bayesian networks are probabilistic graphical models.
+These networks help in exploring complex interdependencies such as gene expression patterns and the dynamics of cancer progression\cite{friedman_using_2000, gerstung_quantifying_2009}.
+Graphs are used in Bayesian networks where edges have one direction, and there are no cycles: a directed acyclic graph or DAG.
+These graphs are used to model joint probability distributions, where nodes represent variables and edges reflect conditional relationships.
+Thanks to this method, bayesian networks enable a better understanding of processes like gene regulation and the accumulation of mutations\cite{friedman_using_2000}.
 
-A Bayesian network uses a directed acyclic graph (DAG) to model joint probability distributions, where nodes represent variables and edges reflect conditional relationships.
-Their design makes them perfect for modeling locally dependent systems.
-This allows detailed exploration of processes such as gene regulation and mutation accumulation\cite{friedman_using_2000}.
-
-Learning a Bayesian network requires determining a structure that most effectively represents the observed data.
-This process often relies on statistical scoring functions, such as Bayesian or BDe scores, to evaluate potential network structures while balancing accuracy and simplicity.
-To address the computational challenges associated with high-dimensional datasets, such as those containing thousands of genes, methods like the Sparse Candidate algorithm restrict the search to a smaller subset of relevant candidate variables.
-This method enables rapid and resource-efficient algorithms\cite{friedman_using_2000}.
-\\\\
-These networks have proven to be valuable tools in various genomic biology applications:
+Making a network learn requires finding the network that most effectively represents the observed data.
+To evaluate potential network structures, scoring functions are used like the Bayesian scores, for example.
+Sparse Candidate algorithm restricts the search to a smaller subset of relevant candidate variables, thus addressing the computational challenges associated with heavy datasets.
+The bootstrap method can also be used to estimate the statistical confidence in the features of already learned networks.
+This can be done by generating perturbed versions of the original data, and this method enables rapid and resource-efficient algorithms\cite{friedman_using_2000}.
+\newpage
+These networks are great tools in certain domains of genomic biology, offering practical solutions in areas like gene expression analysis and cancer progression modeling
 \begin{itemize}
-    \item \textbf{Gene Expression Analysis:} Bayesian networks uncover gene interactions and transcriptional regulation mechanisms by analyzing statistical dependencies.
-        By detecting Markov blankets (variables directly influencing a gene), they pinpoint variables with direct influence on genes and suggest causal associations.
-        These networks are resilient to noisy data and can estimate confidence in findings through techniques such as bootstrapping.
-    \item \textbf{Cancer Progression Modeling:} Conjunctive Bayesian Networks (CBNs) and Hidden CBNs (H-CBNs) model the accumulation of genetic mutations and their interdependencies, giving doctors clues about cancer progression.
-        H-CBNs incorporate observation error models to account for technical noise, improving their robustness and biological relevance.
+    \item \textbf{Gene Expression Analysis:} they uncover gene interactions and transcriptional regulation mechanisms by analyzing statistical dependencies.
+        By identifying Markov blankets, they determine variables that directly influence genes and suggest possible cause-and-effect relationships.
+    \item \textbf{Cancer Progression modeling:} Specialized models such as Conjunctive Bayesian Networks (CBNs) and Hidden CBNs (H-CBNs) track the accumulation of genetic mutations and their dependencies, aiding in understanding cancer progression.
+        H-CBNs further improve robustness by incorporating observation error models to account for technical noise.
 \end{itemize}
 
 \noindent However, bayesian networks rely on handling of priors and assumptions.
@@ -58,43 +60,44 @@ When working with small datasets, prior knowledge strongly influences the learni
 While these networks can infer causal relationships under the Causal Markov Assumption, such interpretations should be made cautiously and require other types of validation.
 For example, hybrid approaches that combine methods with clustering algorithms to learn models over "clustered" genes\cite{friedman_using_2000}.
 
-\noindent Bayesian networks are powerful methods for addressing complex, high-dimensional problems in genomic biology, providing robust statistical analysis and efficient computational approaches to understanding gene regulation and disease progression.
+\noindent In spite of these challenges, Bayesian networks provide robust statistical tools and computational efficiency for exploring complex genomic problems, such as gene regulation and disease progression.
 
 
 \subsection{Relevance/Co-Expression Network Methods}\label{subsec:relevance-co-expression-network-methods}
 
-The relevance/co-expression network method is an analytical framework designed to elucidate functional relationships among genes by investigating their co-expression patterns across diverse conditions or sample sets.
-This method begins with the calculation of pairwise correlations between gene expression profiles, commonly using Pearson correlation coefficients, which serve as a measure of similarity\cite{zhang_general_2005}.
-Indeed, those Pearson correlation coefficients quantify the strength and direction of the linear relationship between two expression levels of two genes across different conditions or samples.
+The relevance/co-expression network method is an analytical method designed to determine functional relationships among genes by investigating their co-expression patterns across diverse conditions or sample sets.
+First, the pairwise correlations between gene expression profiles is calculated, commonly using Pearson correlation coefficients, which serve as a measure of similarity\cite{zhang_general_2005}.
+Indeed, these Pearson correlation coefficients quantify the strength and the direction of the linear relationship between two expression levels of two genes across different samples.
 The Pearson correlation coefficient $r$ is calculated as:
 \[r = \frac{\sum_{i=1}^{n} (x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum_{i=1}^{n} (x_i - \bar{x})^2 \sum_{i=1}^{n} (y_i - \bar{y})^2}}\]
 Where $x_i$, $y_i$ are the expression levels of two genes across samples and $\bar{x}$, $\bar{y}$ are the mean expression levels of the respective genes.
 These correlations are then transformed into connection weights via an adjacency function, where soft-thresholding is preferred over hard-thresholding to retain biological nuances\cite{butte_discovering_2000, oldham_conservation_2006}.
+Hard-Thresholding gives a one if connected and zero if not where soft-thresholding gives a continuous value between 0 and 1, corresponding to the correlation coefficient.
 The resulting network comprises nodes, representing genes, and edges, reflecting the strength of their co-expression relationships.
 By applying a suitable threshold, weaker connections are excluded, enabling the identification of gene clusters, or modules, with significant co-expression\cite{schmitt_elucidation_2004}.
 \\\\
 Such modules often highlight genes involved in shared biological pathways, revealing insights into regulatory mechanisms and system-level gene interactions\cite{horvath_analysis_2006}.
-Relevance networks have been employed to link gene expression with phenotypic traits, such as drug susceptibility, offering hypotheses about gene roles in specific biological processes or responses to environmental stimuli\cite{butte_discovering_2000}.
-This approach has demonstrated utility in contexts ranging from oncogenic signaling to evolutionary studies of co-expression networks across species\cite{oldham_conservation_2006}.
-The methodology thus integrates genomic data into functional networks, bridging the gap between molecular data and systems biology.
+Relevance networks have been employed to link gene expression with phenotypic traits, such as drug susceptibility, giving researchers clues about gene roles in specific biological processes or responses to environmental stimuli\cite{butte_discovering_2000}.
+From oncogenic signaling to evolutionary studies of co-expression networks across species, this approach has demonstrated its efficiency\cite{oldham_conservation_2006}.
 \\\\
-
 Among the various methods for constructing gene co-expression networks, the correlation-based relevance network method stands out for its simplicity and resilience to noise\cite{butte_discovering_2000}.
-This method calculates pairwise correlations among genes and uses thresholds to filter out weak associations, producing networks that are straightforward to interpret\cite{schmitt_elucidation_2004}.
-However, despite its advantages, the reliance on arbitrary thresholds is a significant limitation.
-These thresholds, often chosen based on subjective judgment or convenience, can introduce bias and affect the reproducibility and objectivity of the resulting networks\cite{oldham_conservation_2006}.
-Arbitrary thresholding not only impacts the detection of biologically relevant interactions but also raises concerns about the method’s capacity to reflect the true complexity of gene regulatory mechanisms\cite{gardner_reverse-engineering_2005}.
+This method calculates pairwise correlations among genes and uses thresholds to filter out weak associations associated as noise, producing cleaner networks\cite{schmitt_elucidation_2004}.
+However, in spite of its advantages, the reliance on arbitrary thresholds is a significant limitation.
+Indeed, these thresholds are often chosen based on subjective judgment or convenience introducing bias and affect the reproducibility and objectivity of the resulting networks\cite{oldham_conservation_2006}.
+Arbitrary thresholding not only impacts the detection of biologically relevant interactions but also questions the method’s capacity to reflect the true complexity of gene regulatory mechanisms\cite{gardner_reverse-engineering_2005}.
 Addressing these limitations requires more systematic approaches to threshold selection.
-Such advancements would enhance the robustness and reliability of relevance network analyses, bridging the gap between simplistic correlation-based methods and more sophisticated, biologically accurate models.
+These improvements would enhance the robustness and reliability of relevance network analyses.
 
 \subsection{General Comparaison}\label{subsec:general-comparaison}
 
-When comparing these methods, several key aspects become clear.
-Bayesian methods are particularly notable for their robustness due to their probabilistic nature, while equation-based approaches are more sensitive to noise without a careful experimental design.
-For scalability, Bayesian and relevance methods are better suited for handling large datasets, whereas equation-based methods may encounter difficulties.
-Regarding biological accuracy, relevance methods can fall short because of their reliance on simplistic correlation metrics, potentially overlooking nuanced interactions.
-Finally, when it comes to ease of interpretation, relevance networks are the simplest, followed by Bayesian networks.
-Equation-based models, although powerful, are the most complex and challenging to interpret due to their mathematical intricacies.
+If we compare the three network methods, we can see that each has its strengths and weaknesses.
+The robustness of Bayesian methods is due to their probabilistic nature.
+Equation-based approaches on another hand are more sensitive to noise if they are done without a careful experimental design.
+Bayesian and relevance methods are better for scalability and so for handling large datasets in a contrary to equation-based.
+Relevance methods can be disappointing in terms of biological accuracy.
+Their reliance on simplistic correlation metrics makes them potentially overlook nuanced interactions.
+However, when it comes to ease of interpretation, relevance networks are the simplest to understand, followed by Bayesian networks.
+Equation-based models, although powerful, are extremely challenging to interpret due to their mathematical intricacies.
 \\\\
 Because of its computational simplicity and the nature of microarray data (typically noisy, highly dimensional and significantly under-sampled)\cite{gardner_reverse-engineering_2005}, correlation-based relevance network method is most commonly used for identifying cellular networks.
 It is important to address the limitations of arbitrary thresholding, so those network methods could provide a more comprehensive and biologically accurate representation of gene interactions.

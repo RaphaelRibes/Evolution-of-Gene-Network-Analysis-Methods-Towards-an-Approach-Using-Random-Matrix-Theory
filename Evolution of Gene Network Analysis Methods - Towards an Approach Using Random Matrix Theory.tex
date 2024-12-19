@@ -95,6 +95,42 @@
 \begin{document}
 \onehalfspace
 
+\begin{titlepage}
+    \begin{center}
+	    \includegraphics[height=3cm]{Page_de_garde/logo_UM}\hspace{0.2cm}
+	    \includegraphics[height=3cm]{Page_de_garde/logo_fds_rond}\hspace{0.2cm}
+	    \includegraphics[height=3cm]{Page_de_garde/Logo_Bioinfo}\hspace{0.2cm}
+
+        {\Large Master Bioinformatique\\[1cm]}
+
+        {\large HAU701I : Bibliographic Project\\[0.7cm]}
+
+        \vspace{3cm}
+
+        % Title with bars
+        \hrulefill\\[0.4cm]
+        {\fontsize{18}{22}\textbf{Evolution of Gene Network Analysis Methods: Towards an Approach Using Random Matrix Theory}}\\[0.4cm]
+        \hrulefill
+    \end{center}
+
+    \vfill
+    \noindent
+    \begin{minipage}{0.4\textwidth}
+      \begin{flushleft} \large
+        \emph{Author :}\\
+        Raphaël \textsc{Ribes}\\
+      \end{flushleft}
+    \end{minipage}
+    \begin{minipage}{0.5\textwidth}
+      \begin{flushright} \large
+        \emph{Scientific supervision:} \\
+        Dr. Jizhong \textsc{Zhou}\\
+        \emph{Pedagogical tutor:} \\
+        Dr. Konstantin \textsc{Todorov}\\
+      \end{flushright}
+    \end{minipage}
+\end{titlepage}
+
 % Define the page style for the first two pages
 \fancypagestyle{firstpagestyle}{
     \fancyhf{} % Clear all headers and footers
@@ -103,23 +139,6 @@
 }
 
 % Apply the custom style to the first page
-\thispagestyle{firstpagestyle}
-
-% Include images in the title area
-\pretitle{%
-  \begin{center}
-  \includegraphics[height=2cm]{UM}\hfill
-  \includegraphics[height=2cm]{FDS}\vspace{5cm}\\ % Adjust spacing as needed
-  \normalfont\fontsize{14pt}{16pt}\selectfont % Reset to default font size
-}
-\posttitle{\par\end{center}}
-
-\title{Evolution of Gene Network Analysis Methods: Towards an Approach Using Random Matrix Theory}
-\author{Raphaël Ribes}
-\date{}
-\maketitle
-
-% Suppress page number on the title page
 \thispagestyle{firstpagestyle}
 
 % Reset and start page numbering from the second page
@@ -141,14 +160,14 @@ Thank you both for your contributions to the completion of this work.
 % Sections
 \section{Introduction}\label{sec:introduction}
 \input{introduction}
-
+\vfill
 \section{Network Approaches Applied In Genomic Biology}\label{sec:network-approaches-applied-in-genomic-biology}
 \input{network-approaches-applied-in-genomic-biology}
 
 \section{Random Matrix Theory}\label{sec:random-matrix-theory}
 \input{random-matrix-theory}
 
-\section{Random Matrix Theory}\label{sec:molecular-ecological-network-analysis}
+\section{Molecular Ecological Network Analysis}\label{sec:molecular-ecological-network-analysis}
 \input{molecular-ecological-network-analysis}
 
 \section{Discussion}\label{sec:discussion}

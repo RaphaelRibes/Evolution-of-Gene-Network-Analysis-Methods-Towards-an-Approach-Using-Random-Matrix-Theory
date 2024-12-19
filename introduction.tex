@@ -1,9 +1,11 @@
-Gene networks are among the most crucial frameworks to study in biological research today.
-These methods have evolved from their first application of network science in genomic biology and are combined with ecological models to improve performance metrics like accuracy and interpretability over time.
+Gene networks are among the most crucial tools to study in biological research today.
+These methods have evolved from their first application in genomic biology.
+Combined with ecological models, their performance got improved metrics like accuracy and interpretability over time.
 
-Traditionally, the origins of network analysis in science go back as far as 1736 when Leonhard Euler solved the Seven Bridges of Königsberg (\autoref{fig:seven-bridges-of-königsberg}) problem that enabled development of graph theory and its applications\cite{euler_solutio_1726}.
-The challenge posed to Euler was deceptively simple: Could a person cross all seven bridges exactly once without retracing their steps?
-Euler approached this problem by abstracting the geography of Königsberg into a network of nodes and edges.
+In 1736, in the city of Königsberg known nowadays as Kaliningrad (\autoref{fig:seven-bridges-of-königsberg}), Leonhard Euler received a challenge from one of his friends.
+The challenge, supposed to be a joke, was deceptively basic: could a person cross all seven bridges of the city exactly once without retracing their steps?
+Euler took this joke very seriously, at the point were the solution is the origin of graph theory.
+He approached this problem by abstracting the geography of Königsberg into a network of nodes and edges.
 The landmasses were represented as nodes, and the bridges connecting them were represented as edges.
 % insert a image
 \begin{figure}[h!]
@@ -21,10 +23,10 @@ The landmasses were represented as nodes, and the bridges connecting them were r
 \end{enumerate}
 
 \noindent In the case of Königsberg, all four nodes had an odd degree, making it impossible to traverse the network under the stated conditions.
-This conclusion not only resolved the Königsberg problem but also established the first theorem of graph theory.
+This conclusion did not solve the Euler's friend sunday walk, but established the first theorem of graph theory.
 \\\\
 Jacob Moreno and Helen Jennings took this idea a step further in the 1930s, drawing social relationships with sociometric maps that would be some of the first systematic applications of network analysis to social science\cite{moreno_who_1934}.
-Use of network analysis has been applied to other domains like physics\cite{kirchhoff_solution_1958} and chemistry\cite{arthur_mathematical_1896}, showing how versatile and hwo impactful this field can be.
+Use of network analysis has been applied to other domains like physics\cite{kirchhoff_solution_1958} and chemistry\cite{arthur_mathematical_1896}, showing how versatile and hows impactful this field can be.
 This is why, in this work, the evolution of gene network analysis will be discussed, with a particular focus on the use of Random Matrix Theory (RMT) to increase robustness during network construction.
 
 
@@ -33,12 +35,15 @@ These networks, composed of nodes symbolizing genes and edges reflecting interac
 Researchers leverage these networks to investigate critical biological phenomena\cite{barabasi_network_2004}, such as development\cite{montoya_ecological_2006}, disease progression\cite{friedman_using_2000}, and evolutionary adaptations\cite{dunne_food-web_2002}.
 Notably, gene networks are instrumental in identifying gene modules—highly connected clusters of genes that frequently correspond to functional units and hub genes, which play pivotal roles in maintaining cellular integrity\cite{zhang_general_2005}.
 \\\\
-The construction of gene networks uses diverse methodologies.
-Equation-based models, for instance, infer gene interactions from differential equations that describe gene expression dynamics\cite{deng_molecular_2012}.
-Bayesian approaches, on the other hand, use probabilistic models to estimate gene interactions based on prior knowledge and observed data\cite{gerstung_quantifying_2009}.
-Co-expression networks are another prevalent approach, they use correlation matrices derived from gene expression data to identify links between genes that exhibit strong statistical relationships\cite{zhang_general_2005}.
-These approaches often rely on determining appropriate thresholds to distinguish meaningful biological connections from random noise, a process that remains subjective and heavily influenced by prior knowledge or statistical frameworks.
-Despite their utility, traditional network approaches face challenges such as scalability and sensitivity to noise, emphasizing the need for advanced methods to refine and automate the thresholding process\cite{deng_molecular_2012}.
+Constructing a gene network can be approached in multiple ways, each with its strengths and limitations.
+With differential equations in the equation-based models.
+They look at gene interactions are inferred from differential equations that describe gene expression dynamics\cite{deng_molecular_2012}.
+A more probabilistic approach, like Bayesian networks, uses models to estimate gene interactions based on prior knowledge and observed data\cite{gerstung_quantifying_2009}.
+Finally, the use of correlation matrices derived from gene expression data in co-expression networks identify links between genes that exhibit strong statistical relationships\cite{zhang_general_2005}.
+These methods often rely on determining appropriate thresholds to distinguish meaningful biological connections from random noise, a process that remains subjective and heavily influenced by prior knowledge or experiments.
+Despite their utility, traditional network approaches face challenges such as scalability and their subjectivity, emphasizing the need for advanced methods to refine and automate the thresholding process\cite{deng_molecular_2012}.
 \\\\
 This bibliography takes you on a journey through the history of methods for analyzing gene networks, with particular focus on the game-changing application of RMT in providing greater robustness to network construction.
-This work highlights the need for such advanced methods as well as the integration of approaches like co-expression networks in frameworks such as the Molecular Ecological Network Analysis Pipeline (MENAP) that aim to capture complex biological architectures.
+We will explore first, common network approaches in genomic biology, comparing their strengths and limitations.
+Then we will approach the fundamentals of Random Matrix Theory, its applications in many-body systems with an example of application in quantum physics.
+Finally, the integration of RMT into the Molecular Ecological Network Analysis pipeline will be discussed, showing its impact on network construction and the broader implications for biological research.

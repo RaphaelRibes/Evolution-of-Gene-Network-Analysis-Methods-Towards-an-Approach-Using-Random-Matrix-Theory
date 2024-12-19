@@ -1,7 +1,7 @@
 \subsection{Fundamentals Of Random Matrix}\label{subsec:fundamentals-of-random-matrix}
 
 Random Matrix Theory bridges linear algebra and probability theory\cite{vivo_random_2017}, examining the statistical behavior of matrices with randomly distributed elements.
-Originally introduced by Wigner and Dyson in the 1960s to study the spectral properties of complex nuclei, random modeling has since been applied to identifying and analyzing phase transitions linked to disorder and noise\cite{deng_molecular_2012}.
+Originally introduced by Wigner and Dyson in the 1960s to study the spectral properties of complex nuclei\cite{luo_constructing_2007}, random modeling has since been applied to identifying and analyzing phase transitions linked to disorder and noise\cite{deng_molecular_2012}.
 It allows finding order in chaos, revealing underlying structures in complex systems like co-expression networks\cite{luo_constructing_2007}, financial markets\cite{pharasi_complex_2018}, and quantum physics\cite{guhr_random_1997}.
 A primary goal of RMT is to study the properties of eigenvalues in matrices with random entries.
 \\\\
@@ -39,9 +39,10 @@ So $s=\lambda_1-\lambda_2$ where $\lambda_1$ and $\lambda_2$ are the eigenvalues
     \caption{Wigner’s surmise}
     \label{fig:Wigner’s surmise}
 \end{figure}
-Despite its simplicity, this result is remarkably profound: it reveals that the probability of sampling two eigenvalues that are "very close" to each other (as $s \to 0$) is extremely low.
+Despite its simplicity and the fact that it is just an approximation, this result is remarkably profound: it reveals that the probability of sampling two eigenvalues that are "very close" to each other (as $s \to 0$) is extremely low.
 It is as though each eigenvalue "senses" the presence of the others and adjusts to maintain a certain distance—neither too close nor too far(\autoref{fig:Wigner’s surmise}).
 This behavior is reminiscent of birds perched on an electric wire or cars parked along a street: maintaining a balance between proximity and spacing. \cite{livan_introduction_2017}
+Later on, Freeman Dyson and Eugene Wigner will refine this equation to end up with the Wigner-Dyson distribution $P(s)=\frac{\pi s}{2}e^{-\frac{\pi s^2}{4}}$
 \\\\
 Random Matrix Theory predicts two universal extreme distributions for the nearest neighbor spacing distribution (NNSD) of eigenvalues: the Gaussian Orthogonal Ensemble (GOE) statistics, reflecting the random characteristics of complex systems, and the Poisson distribution, representing system-specific, nonrandom properties of complex systems.
 This transition highlights the level of repulsion, where eigenvalues tend to "avoid" proximity.

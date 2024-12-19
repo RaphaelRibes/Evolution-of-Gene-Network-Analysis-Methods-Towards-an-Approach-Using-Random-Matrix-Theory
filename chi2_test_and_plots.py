@@ -4,8 +4,12 @@ from scipy.stats import chi2
 import matplotlib.pyplot as plt
 # import a dataset of modulated network
 
+def wigner_dyson(s):
+    return (np.pi * s / 2) * np.exp(-(np.pi * s ** 2) / 4)
+
 # Example usage
 if __name__ == '__main__':
+    np.random.seed(15451)
     # Generate sample eigenvalues for testing
     N = 10000
     lambdas = np.random.normal(loc=0, scale=1, size=N)
@@ -20,11 +24,11 @@ if __name__ == '__main__':
     e_i = spline(lambdas)
 
     # Compute the NNDS
-    spacings = np.diff(e_i)
+    spacings = abs(np.diff(e_i))
 
     # Khi² test, compute the expected spacings
     # Compute the histogram of spacings
-    p_s, bin_edges = np.histogram(spacings, bins=50, density=True)
+    p_s, bin_edges = np.histogram(spacings, bins=100, density=True)
     s = 0.5 * (bin_edges[:-1] + bin_edges[1:])
 
     poisson = np.exp(-s)
@@ -40,9 +44,9 @@ if __name__ == '__main__':
     wingner_dyson = ((np.pi * x) / 2) * np.exp(-(np.pi * x ** 2) / 4)
     poisson = np.exp(-x)
 
-    plt.plot(x, wingner_dyson, label=r"$P(s) = \frac{\pi s}{2} e^{-\frac{\pi s^2}{4}}$")
-    plt.plot(x, poisson, label=r"$P(s) = e^{-s}$")
-    plt.hist(spacings, bins=50, density=True, alpha=0.7, label='Histogram of $s$')
+    plt.plot(x, wingner_dyson, label="Wigner-Dyson GOE")
+    plt.plot(x, poisson, label="Poisson distribution")
+    plt.hist(spacings, bins=100, density=True, alpha=0.7, label='Histogram of $s$')
 
     plt.xlabel(r"$s$", fontsize=12)
     plt.ylabel(r"$P(s)$", fontsize=12)

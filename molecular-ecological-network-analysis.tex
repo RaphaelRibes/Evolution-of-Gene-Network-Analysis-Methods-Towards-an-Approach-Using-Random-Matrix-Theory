@@ -68,7 +68,7 @@ To determine whether the NNDS follows the Wigner-Dyson distribution or the Poiss
 By establishing the null hypothesis $H_0$ that $P(d)$ follows a Poisson distribution, the NNSD is tested to see if it conforms to this distribution.
 If the NNSD does follow a Poisson distribution, then 0.1 is subtracted to the current threshold and then increases the threshold incrementally by 0.01 instead of 0.1.
 This is tested by a $\chi^2$ defined like:
-\[\chi^2=\sum \frac{d_i-E(d_i)}{E(d_i)}\]
+\[\chi^2=\sum \frac{(d_i-E(d_i))^2}{E(d_i)}\]
 With $d_i$ the observed nearest neighbor spacing and $E(d_i)$ the expected nearest neighbor spacing from Poisson distribution.
 
 \noindent After determining the final threshold value $s_t$ at a finer scale, an adjacency matrix is constructed by retaining all OTUs with abundance similarity values exceeding the defined threshold.
@@ -93,6 +93,7 @@ It is assumed that, and the eigenvalues $\lambda_i$ of the adjacency matrix $A^{
 import numpy as np
 from scipy.interpolate import UnivariateSpline
 from scipy.stats import chi2
+np.random.seed(74)
 
 # Generate sample eigenvalues for testing
 N = 10000
@@ -108,28 +109,27 @@ spline = UnivariateSpline(lambdas, N_lambda, s=N, k=3)
 e_i = spline(lambdas)
 
 # Compute the NNDS
-spacings = np.diff(e_i)
+spacings = abs(np.diff(e_i))
 
-# Khi^2 test, compute the expected spacings
 # Compute the pdf of spacings
 p_s, bin_edges = np.histogram(spacings, bins=50, density=True)
 s = 0.5 * (bin_edges[:-1] + bin_edges[1:])
 
-poisson = np.exp(-s)
-
 # Compute the chi-squared statistic
+poisson = np.exp(-s)
 chi2_stat = np.sum((p_s - poisson) ** 2 / poisson)
-print(f"{chi2_stat:.2f} <= {chi2.ppf(0.99, 1):.2f} so H0 is not rejected")
+if chi2_stat <= chi2.ppf(0.95, 50 - 1): print("H0 is not rejected")
+else: print("H0 is rejected")
 \end{lstlisting}
 \caption{Python code for determining the threshold for the adjacency matrix using RMT}
 \label{fig:pythoncode}
 \end{figure}
 
-From this, it is concluded that "0.09 $\leq$ 6.63 so H0 is not rejected" indicating that it is the right threshold because the NNSD is consistent with the Poisson distribution~(\autoref{fig:Histogram_of_spacings_and_expected_spacings}).
-Indeed, since the eigenvalues are generated using a normal distribution, these eigenvalues are uncorrelated by design.
 This code snippet~(\autoref{fig:pythoncode}) demonstrates hwo easy the process of determining the adjacency matrix using RMT can be.
+From this, it is concluded that "0.32 $\leq$ 6.63 so H0 is not rejected" indicating that it is the right threshold because the NNSD is consistent with the Poisson distribution~(\autoref{fig:Histogram_of_spacings_and_expected_spacings}).
+Indeed, since the eigenvalues are generated using a normal distribution, these eigenvalues are uncorrelated by design.
+This is the best case scenario, real data rarely behaves like this.
 This simplicity mixed with the robustness of determining a threshold with RMT makes this method very elegant.
-The histogram of spacings and the expected spacings can be plotted to visualize the results.
 
 \begin{figure}[H]
     \centering
@@ -157,7 +157,7 @@ This comparison helps researchers choose the right method based on their researc
 \midrule
 \textbf{Network Construction Method} &
 Uses Random Matrix Theory (RMT) for threshold determination, avoiding arbitrary cutoffs\cite{deng_molecular_2012} &
-Relies on hard thresholding or predefined cutoff values, which can be subjective\cite{butte_discovering_2000} \\
+Relies on soft/hard thresholding or predefined cutoff values, which are subjective\cite{butte_discovering_2000} \\
 
 \textbf{Robustness to Noise} &
 Highly robust due to the RMT-based framework\cite{deng_molecular_2012} &
@@ -173,14 +173,14 @@ Studying biological processes like disease susceptibility and functional gene mo
 
 \textbf{Threshold Determination} &
 Automated through RMT to ensure consistency\cite{deng_molecular_2012} &
-Arbitrary or empirically determined, leading to potential biases\cite{deng_molecular_2012} \\
+Arbitrary or empirically determined, leading to biases\cite{deng_molecular_2012} \\
 
 \textbf{Integration with Functional Data} &
 Facilitates module-based eigengene analysis for deeper insights\cite{deng_molecular_2012} &
 Limited integration with functional data without additional preprocessing\cite{horvath_analysis_2006} \\
 
 \textbf{Software Availability} &
-Supported by tools like MENAP for streamlined analysis\cite{deng_molecular_2012} &
+Supported by tools online for streamlined analysis\cite{deng_molecular_2012} &
 Requires multiple tools or manual pipelines, such as clustering and visualization packages\cite{deng_molecular_2012} \\
 \bottomrule
 \end{tabularx}
@@ -188,17 +188,19 @@ Requires multiple tools or manual pipelines, such as clustering and visualizatio
 \label{tab:mena_vs_lcna}
 \end{table}
 
-The comparison highlights the strengths and limitations of MENA and LCNA, helping to understand their optimal applications.
-MENA uses Random Matrix Theory for automated thresholding, reducing subjective bias and enhancing robustness.
-This makes it well-suited for high-throughput ecological studies where noise is a concern.
-Its emphasis on modularity and eigengene analysis and also provides a better understanding of the network topology and environmental interactions, making it a great tool for microbial ecology and dynamic network studies.
+With this table(\autoref{tab:mena_vs_lcna}), it is clear that MENA and LCNA have distinct advantages and limitations.
+MENA uses RMT for automated thresholding, reducing subjective bias.
+In high-throughput ecological studies where noise is a concern, this makes it a great choice.
+Because of the need for a better understanding of the network topology and environmental interactions, new methods like MENA are essential.
+The analyses on modularity and eigengene is a fantastic help in the comprehension of the molecular ecological networks.
+However, it keeps the co-expression network analysis downsides such as the reliance on simplistic correlation metrics.
 
-\noindent In contrast, LCNA applies co-expression thresholds in a simpler framework, easily accessible when computational resources or specialized tools are limited.
-However, its sensitivity to threshold selection and noise can lead to inconsistencies in network structure.
-However, LCNA’s long-standing use and compatibility with diverse datasets have established it as a foundational method in network biology.
+\noindent In contrast, some LCNA are simpler of use, making it more accessible when computational resources or specialized tools are limited.
+In spite of this, the subjectivity with the threshold selection and noise can result in inconsistencies in network structure.
+LCNA’s adaptability to diverse datasets has a solid role as a foundational approach in network biology.
 \\\\
 Both approaches have distinct roles.
-MENA excels in complex ecological data analysis, while LCNA offers a practical entry point for studying gene expression in simpler contexts.
-Future developments may integrate MENA’s robustness with LCNA’s accessibility, creating a unified framework that overcomes their limitations.
+Complex ecological data analysis is where MENA shine, while LCNA offers a practical entry point for studying gene expression in simpler contexts.
+Future developments may integrate MENA’s robustness with the different LCNA’s strong points like accessibility and the inclusion of complexe data.
 Researchers should choose the method that best fits their dataset, goals, and computational expertise.
 
